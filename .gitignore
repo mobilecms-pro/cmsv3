@@ -1,3 +1,4 @@
-/data_files/config.php
 /nbproject/
 /mcms/nbproject/private/
+/Application/Configs/database.php
+/Modules/
