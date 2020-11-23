@@ -16,7 +16,7 @@ namespace System\Engine\Page;
  */
 class FormsBuilder
 {
-     protected $page;
+    protected $page;
     protected $form;
     protected $options = [];
     protected $id = 0;
@@ -109,6 +109,7 @@ class FormsBuilder
         string $help = '',
         bool $disable = false
     ) {
+        $this->options = array_merge($options, $this->options);
         $this->form['elements'][] = [
             'type' => 'select',
             'name' => $name,
@@ -118,6 +119,7 @@ class FormsBuilder
             'id' => $this->id++
         ];
         $this->options = [];
+        return $this;
     }
     protected function withElement(
         string $type,
