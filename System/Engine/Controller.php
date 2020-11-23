@@ -35,6 +35,11 @@ abstract class Controller {
      * @var \System\Engine\Model
      */
     protected $model;
+    /**
+     *
+     * @var \System\Engine\I18n\Language 
+     */
+    protected $lang;
     protected $user;
     protected $get = [];
     protected $post = [];
@@ -46,6 +51,7 @@ abstract class Controller {
         $this->get = $core->request->getQueryParams();
         $this->post = $core->request->getParsedBody();
         $this->cookie = $this->core->request->getCookieParams();
+        $this->lang = new I18n\Language('ru-Ru');
         if (isset($this->cookie['id'], $this->cookie['password'])){ 
             $this->user = new \Modules\Users\UserHelper(
                 $this->model->getUserByAuth(
@@ -58,11 +64,6 @@ abstract class Controller {
     }
     public function requestError() {
         echo $this->core->request->getUri()->getPath();
-    }
-    public function before() {
-    }
-    public function after() {
-        
     }
     abstract public function actionIndex($params);
 }
