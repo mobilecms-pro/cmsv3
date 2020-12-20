@@ -32,11 +32,6 @@ abstract class Controller {
     protected $request;
     /**
      *
-     * @var \System\Engine\Model
-     */
-    protected $model;
-    /**
-     *
      * @var \System\Engine\I18n\Language 
      */
     protected $lang;
