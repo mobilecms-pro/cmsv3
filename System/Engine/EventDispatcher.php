@@ -72,6 +72,6 @@ class EventDispatcher implements
                 return $class->$method($event);
             };
         }
-        throw new \InvalidArgumentException('');
+        throw new \InvalidArgumentException('Неизвестный тип слушателя!');
     }
 }
