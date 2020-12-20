@@ -63,7 +63,7 @@ class Core implements ContainerInterface
      */
     public function __construct(array $input = [])
     {
-        $this->container = new \ArrayObject($input, \ArrayObject::ARRAY_AS_PROPS);
+        $this->container = new \ArrayObject($input);
         $this->dispatcher = new EventDispatcher();
         $this->config = new Config();
         $this->mysqli = new MySQLiDB($this->config);
@@ -96,10 +96,10 @@ class Core implements ContainerInterface
     public function handle(UriInterface $uri, $method = RequestMethodInterface::METHOD_GET) 
     {
         $handle = $this->routing->match($uri->getPath(), $method);
-        $this->set('route.name', $handle['name']);
         list($class, $action) = explode('@', $handle['handler']);
         if (class_exists($class) && method_exists($class, $action)) {
             $controller = new $class($this);
+            $this->set('handle', $handle);
              return $controller->$action($handle['params']);
         }
         echo 'Not FOUND handle!';
