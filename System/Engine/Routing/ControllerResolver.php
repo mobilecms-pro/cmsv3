@@ -9,12 +9,26 @@
 
 namespace System\Engine\Routing;
 
+use System\Engine\Core;
 /**
  * Класс определителя роута
  * @author KpuTuK <bykputuk@ya.ru>
  */
 class ControllerResolver
 {
+    /**
+     * Обьект ядра системы
+     * @var System\Engine\Core $core
+     */
+    private $core;
+    /**
+     *  Конструктор класса
+     * @param System\Engine\Core $core
+     */
+    public function __construct(Core $core)
+    {
+        $this->core = $core;
+    }
     /**
      * Определяет и проверяет на наличие файла класса роут
      * @param array $match Массив данных роута
@@ -28,14 +42,15 @@ class ControllerResolver
         if (!array_key_exists('action', $match)) {
             $match['action'] = 'actionIndex';
         }
+        $this->core->set('handle', $match);
         $module = ucfirst($match['module']);
         $controller = ucfirst($match['controller']).'Controller';
         $action = 'action'. ucfirst($match['action']);
         $class = 'Modules\\'. $module.'\\'. $controller;
         if ($this->checkRoute($controller, $module)) { 
             if (class_exists($class) && method_exists($class, $action)) {
-            $controller = new $class($this);
-            return $controller->$action($handle['params']);
+            $controller = new $class($this->core);
+            return $controller->$action($match);
             }
         }
         return $class .'@'. $action .' Not Found!';
