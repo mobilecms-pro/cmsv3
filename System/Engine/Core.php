@@ -26,9 +26,10 @@ class Core implements ContainerInterface
      */
     protected $container = [];
     /**
+     * Паттерн singleton
      * @var \System\Engine\Core
      */
-    protected static $singleton;
+    public static $cms;
     /**
      * @var \System\Engine\EventDispatcher
      */
@@ -79,14 +80,15 @@ class Core implements ContainerInterface
         );
         $this->page = new Page\Page($this);
         $this->response = new Http\Response($this->request->getUri());
-        self::$singleton = $this;
+        self::$cms = $this;
     }
     /**
      * Реализация паттерна singleton
      * @return \System\Engine\Core
+     * @deprecated 3.0.1
      */
     public static function getSingleton() {
-        return self::$singleton;
+        return self::$cms;
     }
     /**
      * 
