@@ -21,7 +21,7 @@ class ParameterBag extends \ArrayObject
         if (!$this->offsetExists($index)) {
             return null;
         }
-        return htmlspecialchars(parent::offsetGet($index));
+        return htmlspecialchars(trim(parent::offsetGet($index)));
     }
     public function merge(array $array = [])
     {
