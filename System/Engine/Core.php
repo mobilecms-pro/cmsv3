@@ -120,7 +120,7 @@ class Core implements ContainerInterface
      * @param string $id
      */
     public function get($id) {
-        $this->container->offsetGet($id);
+        return $this->container->offsetGet($id);
     }
     /**
      * Проверяет наличие ключа в контейнере
